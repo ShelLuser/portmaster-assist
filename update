@@ -1,0 +1,6 @@
+#!/bin/sh
+
+#portmaster -a -x screen -x nvidia-driver -x thunderbird -x firefox -x libreoffice\
+portmaster -d science/avogadro math/cantor sysutils/e2fsprogs misc/e2fsprogs-libblkid misc/gimp-help-en devel/gobject-introspection textproc/itstool devel/libglade2 converters/p5-Encode graphics/p5-GD lang/p5-Scalar-List-Utils www/p5-libwww devel/py-gobject x11-toolkits/py-gtk2 devel/py-pykde4@py27 devel/py-pytz@py27 devel/pydbus-common net/samba45 databases/tdb devel/py-iso8601@py27 devel/talloc devel/tevent dns/py-dnspython@py27 deskutils/superkaramba net-im/telepathy-farstream sysutils/fusefs-ext2 devel/git irc/irssi devel/jenkins dns/powerdns lang/rust graphics/vigra\
+	| tee /root/updates/$0$1.log
+

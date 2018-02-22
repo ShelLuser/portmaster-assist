@@ -1,0 +1,65 @@
+#!/bin/sh
+
+## CONFIG section
+
+# Where the script resides
+WP=/root/updates
+
+## INIT section, don't change
+
+ME=`basename $0`
+udate=`stat -f %Sa -t %Y%m%d $WP/$0.meta`
+
+if [ -n "$udate" ]; then
+	ucmd="-d $udate";
+fi;
+
+if [ "$1" == "reset" -o "$1" == "clear" -o "$2" == "reset" ]; then
+	> $WP/$ME-updating.log;
+	if [ "$1" == "clear" ]; then exit; fi;
+fi
+
+## FUNCTIONS section
+
+ports_fetch() {
+	portsnap fetch update
+}
+
+log_full() {
+	portmaster -L > $WP/portmaster.log &
+	log_new
+}
+
+log_new() {
+	pkg version -Il\< > $WP/$ME.log
+}
+
+log_updating() {
+	for a in `cat $WP/$ME.log | cut -d '-' -f1`; do
+		pkg updating $ucmd $a >> $WP/$ME-updating.log;
+	done
+}
+
+## MAIN section
+
+if [ "$1" == "" -o "$1" == "reset" ]; then
+	ports_fetch && log_full && log_updating
+	touch $0.meta
+	if [ "`jobs -p`!" != "!" ]; then
+		echo "Warning: background job still running!"	> /dev/stderr
+	fi
+elif [ "$1" == "update" ]; then
+	log_new
+elif [ "$1" == "help" ]; then
+	echo "Usage: $0 [reset|update|clear|help]"
+	echo
+	echo "reset  => Clears $ME-updating.log and performs update."
+	echo "update => Only updates list of currently known new ports."
+	echo "clear  => Clears $ME-updating.log and exits."
+	echo "help   => Display this message."
+	echo
+else
+	echo "Wrong parameter!"				> /dev/stderr
+	echo "Usage: $0 [reset|update|clear|help]"	> /dev/stderr
+fi
+
