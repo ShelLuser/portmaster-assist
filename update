@@ -1,5 +1,0 @@
-#!/bin/sh
-
-portmaster -a -x screen -x nvidia-driver -x thunderbird -x firefox -x libreoffice\
-	| tee /root/updates/$0$1.log
-
