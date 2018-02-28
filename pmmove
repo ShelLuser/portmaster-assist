@@ -1,7 +1,5 @@
 #!/bin/csh
 
-### Version 1.0
-
 ### Checks Portmaster log for moved ports and 
 ### then changes their origin.
 
