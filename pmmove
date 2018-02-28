@@ -3,6 +3,8 @@
 ### Checks Portmaster log for moved ports and 
 ### then changes their origin.
 
+## test
+
 ## INIT section (don't change)
 
 if (`grep moved portmaster.log` == "") then
