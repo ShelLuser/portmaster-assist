@@ -1,7 +1,7 @@
 #!/bin/csh
 
-### Checks Portmaster log for moved ports and mass-changes
-### their origin
+### Checks Portmaster log for moved ports and 
+### then changes their origin.
 
 ## INIT section (don't change)
 
