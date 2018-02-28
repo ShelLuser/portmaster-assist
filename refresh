@@ -5,7 +5,7 @@
 # Where the script resides
 WP=/root/updates
 
-## INIT section, don't change
+## INIT section (don't change)
 
 ME=`basename $0`
 udate=`stat -f %Sa -t %Y%m%d $WP/$0.meta`

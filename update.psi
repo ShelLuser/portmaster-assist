@@ -1,16 +1,17 @@
 #!/bin/sh
 
-## CONFIG SECTION
+## CONFIG section
 
 # Jail
 jail=psi
 
-## MAIN
+## INIT section (don't change)
 
-# init
 jail_dir=/opt/jails/$jail
 
 if [ -f $jail.list ]; then rm $jail.list; fi
+
+## MAIN
 
 for a in `cut -d ' ' -f1 refresh.log`; do
 	pkg info -qox $a >> $jail.list;
