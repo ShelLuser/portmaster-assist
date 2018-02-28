@@ -1,5 +1,7 @@
 #!/bin/sh
 
+### Version 1.0
+
 ## CONFIG section
 
 # Where the script resides
