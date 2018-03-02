@@ -1,0 +1,30 @@
+#!/bin/sh
+
+## CONFIG section
+
+# Where the scripts reside
+WP=/root/updates
+
+## INIT section (don't change)
+
+if [ ! -f /etc/jail.conf ]; then
+	echo "No jails configured, exiting!"		> /dev/stderr
+	exit 1
+fi
+
+if [ !$1 ]; then
+	jail=$(awk '/^.*\{/ {print $1}' /etc/jail.conf);
+	echo No jail specified on commandline, trying to use: $jail
+else
+	jail=$1;
+fi
+
+if [ ! "$(jls | grep $jail)" ]; then
+	echo "Jail $jail isn't running, exiting!"	> /dev/stderr
+	exit 1
+fi
+
+## MAIN
+
+jexec -l $jail $WP/update | tee $WP/$0.log
+
