@@ -1,0 +1,25 @@
+#!/bin/sh
+
+## CONFIG section
+
+# Jail
+jail=psi
+
+## INIT section (don't change)
+
+jail_dir=/opt/jails/$jail
+
+if [ -f $jail.list ]; then rm $jail.list; fi
+
+## MAIN
+
+for a in `cut -d ' ' -f1 refresh.log`; do
+	pkg info -qox $a >> $jail.list;
+done
+
+if `jls -j $jail 2> /dev/null > /dev/null`; then
+	jexec -l $jail portmaster -x nvidia-driver -x thunderbird -x firefox -x libreoffice `cat $jail.list` 2>&1 | tee update_$jail.log
+else
+	echo "Jail $jail not running, aborting!"	> /dev/stderr
+fi
+
