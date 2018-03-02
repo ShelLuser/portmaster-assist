@@ -1,0 +1,14 @@
+#!/bin/sh
+
+## INIT section (don't change)
+
+if [ $(grep moved $WP/portmaster.log ];
+	echo Moved ports detected, please handle those first!	> /dev/stderr
+	exit 1
+fi
+
+## MAIN section
+
+portmaster -a -x screen -x nvidia-driver -x thunderbird -x firefox -x libreoffice\
+	| tee /root/updates/$0$1.log
+
