@@ -7,7 +7,7 @@ WP=/root/updates
 
 ## INIT section (don't change)
 
-ME=`basename $0`
+ME=`uname $0`
 udate=`stat -f %Sa -t %Y%m%d $WP/$0.meta`
 
 if [ -n "$udate" ]; then
@@ -59,7 +59,7 @@ elif [ "$1" == "help" ]; then
 	echo "help   => Display this message."
 	echo
 else
-	echo "Wrong parameter!"				> /dev/stderr
-	echo "Usage: $0 [reset|update|clear|help]"	> /dev/stderr
+	echo "Wrong parameter!"					> /dev/stderr
+	echo "Usage: $0 [reset|update|clear|help]"		> /dev/stderr
 fi
 

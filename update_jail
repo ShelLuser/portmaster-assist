@@ -2,7 +2,7 @@
 
 ## CONFIG section
 
-# Where the scripts reside
+# Where the script resides
 WP=/root/updates
 
 ## INIT section (don't change)
@@ -12,7 +12,7 @@ if [ ! -f /etc/jail.conf ]; then
 	exit 1
 fi
 
-if [ !$1 ]; then
+if [ ! "$1" ]; then
 	jail=$(awk '/^.*\{/ {print $1}' /etc/jail.conf);
 	echo No jail specified on commandline, trying to use: $jail
 else
