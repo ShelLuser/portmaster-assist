@@ -12,8 +12,31 @@ if [ $(grep moved $WP/portmaster.log) ]; then
 	exit 1
 fi
 
+if [ "$1" == "jail" ]; then
+   if [ ! "$2" ]; then
+	jail=$(awk '/^.*\{/ {print $1}' /etc/jail.conf);
+	echo "No jail specified on commandline, trying to use: $jail";
+   else
+	jail=$1;
+   fi
+
+   if [ ! "$(jls | grep $jail)" ]; then
+	echo "Jail $jail isn't running, exiting!"	> /dev/stderr
+	exit 1
+   fi
+fi
+
+## FUNCTIONS
+
+build() {
+	portmaster -a -x screen -x nvidia-driver -x thunderbird -x firefox -x libreoffice\
+	| tee $WP/$0$1.log
+}
+
+build_jail() {
+	jexec -l $jail $WP/update | tee $WP/$0.log
+}
+
 ## MAIN section
 
-portmaster -a -x screen -x nvidia-driver -x thunderbird -x firefox -x libreoffice\
-	| tee $WP/$0$1.log
 
