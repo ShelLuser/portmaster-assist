@@ -15,13 +15,18 @@ fi
 if [ "$1" == "jail" ]; then
    if [ ! "$2" ]; then
 	jail=$(awk '/^.*\{/ {print $1}' /etc/jail.conf);
-	echo "No jail specified on commandline, trying to use: $jail";
+	if [ ! "$jail" ]; then
+		echo "No jail available, exiting!"		> /dev/stderr
+		exit 1
+	else
+		echo "No jail specified on commandline, trying to use: $jail";
+	fi
    else
 	jail=$1;
    fi
 
    if [ ! "$(jls | grep $jail)" ]; then
-	echo "Jail $jail isn't running, exiting!"	> /dev/stderr
+	echo "Jail $jail isn't running, exiting!"		> /dev/stderr
 	exit 1
    fi
 fi
@@ -34,9 +39,15 @@ build() {
 }
 
 build_jail() {
-	jexec -l $jail $WP/update | tee $WP/$0.log
+	echo "Re-starting build process within jail $jail." > $WP/$0.log
+	jexec -l $jail $WP/update
 }
 
 ## MAIN section
 
+if [ $jail ]; then
+	build_jail
+else
+	build
+fi
 
