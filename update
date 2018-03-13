@@ -51,10 +51,7 @@ upgrade() {
 
 if [ $jail ]; then
 	build_jail
-else
-	build
-
-if [ "$1" == "pkg" ]; then
+elif [ "$1" == "pkg" ]; then
 	upgrade
 else
 	build
