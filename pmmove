@@ -5,10 +5,12 @@
 
 ## INIT section (don't change)
 
-if (`grep moved portmaster.log` == "") then
+if ("`grep moved portmaster.log`" == "") then
   echo No moved ports to process, exiting!	> /dev/stderr
   exit 1
 endif
+
+set pm=0
 
 if ($1 == "pm") then
   set pm=1
@@ -21,10 +23,13 @@ foreach a ("`grep moved portmaster.log`")
   set old_pm=`echo $old | cut -d '/' -f2`;
   set new=`echo "$a" | cut -d ' ' -f7`;
 
-  if (pm == 1) then
+  if ($pm == 1) then
     portmaster -o $new $old_pm
   else
     pkg set -yo $old\:$new;
   endif
 end
+
+echo "Changed origin for $old, now refreshing port updates."
+./refresh
 

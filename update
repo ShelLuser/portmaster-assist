@@ -7,7 +7,7 @@ WP=/root/updates
 
 ## INIT section (don't change)
 
-if [ $(grep moved $WP/portmaster.log) ]; then
+if [ "$(grep moved $WP/portmaster.log)" ]; then
 	echo Moved ports detected, please handle those first!	> /dev/stderr
 	exit 1
 fi
