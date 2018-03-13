@@ -25,6 +25,10 @@ ports_fetch() {
 	portsnap fetch update
 }
 
+pkg_fetch() {
+	pkg update
+}
+
 log_full() {
 	portmaster -L > $WP/portmaster.log &
 	log_new
@@ -32,6 +36,10 @@ log_full() {
 
 log_new() {
 	pkg version -Il\< > $WP/$ME.log
+}
+
+log_pkg() {
+	pkg version -Rl\< > $WP/$ME.log
 }
 
 log_updating() {
@@ -50,16 +58,20 @@ if [ "$1" == "" -o "$1" == "reset" ]; then
 	fi
 elif [ "$1" == "update" ]; then
 	log_new
+elif [ "$1" == "pkg" ]; then
+	pkg_fetch && log_pkg && log_updating
+	touch $0.meta
 elif [ "$1" == "help" ]; then
-	echo "Usage: $0 [reset|update|clear|help]"
+	echo "Usage: $0 [reset|update|clear|pkg|help]"
 	echo
 	echo "reset  => Clears $ME-updating.log and performs update."
 	echo "update => Only updates list of currently known new ports."
 	echo "clear  => Clears $ME-updating.log and exits."
+	echo "pkg    => Performs update using package repository."
 	echo "help   => Display this message."
 	echo
 else
 	echo "Wrong parameter!"					> /dev/stderr
-	echo "Usage: $0 [reset|update|clear|help]"		> /dev/stderr
+	echo "Usage: $0 [reset|update|clear|pkg|help]"		> /dev/stderr
 fi
 

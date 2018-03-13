@@ -43,10 +43,19 @@ build_jail() {
 	jexec -l $jail $WP/update
 }
 
+upgrade() {
+	pkg upgrade
+}
+
 ## MAIN section
 
 if [ $jail ]; then
 	build_jail
+else
+	build
+
+if [ "$1" == "pkg" ]; then
+	upgrade
 else
 	build
 fi
