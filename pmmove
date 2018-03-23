@@ -30,6 +30,6 @@ foreach a ("`grep moved portmaster.log`")
   endif
 end
 
-echo "Changed origin for $old, now refreshing port updates."
-./refresh
+echo "Finished changing port origin(s), now refreshing port updates."
+./refresh update
 

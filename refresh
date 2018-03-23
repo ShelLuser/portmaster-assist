@@ -53,25 +53,30 @@ log_updating() {
 if [ "$1" == "" -o "$1" == "reset" ]; then
 	ports_fetch && log_full && log_updating
 	touch $0.meta
-	if [ "`jobs -p`!" != "!" ]; then
-		echo "Warning: background job still running!"	> /dev/stderr
-	fi
 elif [ "$1" == "update" ]; then
 	log_new
+elif [ "$1" == "upfull" ]; then
+	log_full
 elif [ "$1" == "pkg" ]; then
 	pkg_fetch && log_pkg && log_updating
 	touch $0.meta
 elif [ "$1" == "help" ]; then
-	echo "Usage: $0 [reset|update|clear|pkg|help]"
+	echo "Usage: $0 [reset|update|upfull|clear|pkg|help] [clear]"
 	echo
 	echo "reset  => Clears $ME-updating.log and performs update."
-	echo "update => Only updates list of currently known new ports."
+	echo "update => Quickly refreshes list of currently known new ports."
+	echo "upfull => Fully refreshes list of currently known new ports."
 	echo "clear  => Clears $ME-updating.log and exits."
+	echo "           \* Can also be used as parameter."
 	echo "pkg    => Performs update using package repository."
 	echo "help   => Display this message."
 	echo
 else
 	echo "Wrong parameter!"					> /dev/stderr
 	echo "Usage: $0 [reset|update|clear|pkg|help]"		> /dev/stderr
+fi
+
+if [ "`jobs -p`!" != "!" ]; then
+	echo "Warning: background job still running!"	> /dev/stderr
 fi
 
