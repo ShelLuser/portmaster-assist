@@ -6,7 +6,7 @@
 ## INIT section (don't change)
 
 if ("`grep moved portmaster.log`" == "") then
-  echo No moved ports to process, exiting!	> /dev/stderr
+  echo "No moved ports to process, exiting!"		> /dev/stderr
   exit 1
 endif
 
@@ -28,8 +28,9 @@ foreach a ("`grep moved portmaster.log`")
   else
     pkg set -yo $old\:$new;
   endif
+  echo "Changed: $old => $new";
 end
 
 echo "Finished changing port origin(s), now refreshing port updates."
-./refresh update
+./refresh upfull
 
