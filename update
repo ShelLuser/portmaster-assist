@@ -7,6 +7,16 @@ WP=/root/updates
 
 ## INIT section (don't change)
 
+# Parse config file
+CONF=$WP/`basename $0`.conf
+
+if [ -f $CONF ]; then
+	# Check for ports to ignore.
+	for a in $(cat update.conf | grep ignore | cut -d '=' -f2-); do
+		IGNORE="$IGNORE -x $a";
+	done;
+fi;
+
 if [ "$(grep moved $WP/portmaster.log)" ]; then
 	echo Moved ports detected, please handle those first!	> /dev/stderr
 	exit 1
@@ -34,7 +44,7 @@ fi
 ## FUNCTIONS
 
 build() {
-	portmaster -a -x screen -x nvidia-driver -x thunderbird -x firefox -x libreoffice\
+	portmaster -a -x screen -x nvidia-driver $IGNORE\
 	| tee $WP/$0$1.log
 }
 
