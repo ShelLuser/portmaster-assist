@@ -44,7 +44,7 @@ fi
 ## FUNCTIONS
 
 build() {
-	portmaster -a -x screen -x nvidia-driver $IGNORE\
+	portmaster -a $IGNORE\
 	| tee $WP/$0$1.log
 }
 
