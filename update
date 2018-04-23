@@ -48,6 +48,11 @@ build() {
 	| tee $WP/$0$1.log
 }
 
+build_failed() {
+	portmaster $(cut -f2 -d '>' /tmp/portmasterfail.txt)\
+	| tee $WP/$0_failed.log
+}
+
 build_jail() {
 	echo "Re-starting build process within jail $jail." > $WP/$0.log
 	jexec -l $jail $WP/update
@@ -63,6 +68,8 @@ if [ $jail ]; then
 	build_jail
 elif [ "$1" == "pkg" ]; then
 	upgrade
+elif [ "$1" == "pf" ]; then
+	build_failed
 else
 	build
 fi
