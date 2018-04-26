@@ -68,7 +68,7 @@ elif [ "$1" == "help" ]; then
 	echo "upfull => Fully refreshes list of currently known new ports."
 	echo "clear  => Clears $ME-updating.log and exits."
 	echo "           \* Can also be used as parameter."
-	echo "pkg    => Performs update using package repository."
+	echo "pkg    => Performs update without Portmaster (pkg only)."
 	echo "help   => Display this message."
 	echo
 else
