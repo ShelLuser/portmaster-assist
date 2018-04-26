@@ -1,0 +1,12 @@
+Portmaster Assist
+~~~~~~~~~~~~~~~~~
+
+## ABOUT
+
+Postmaster assist is a collection of shell scripts which make it
+easier to update the FreeBSD ports collection on the commandline.
+
+Instead of having to manually use portsnap (to update the ports
+collection) or portmaster (to upgrade the installed ports) the
+entire process is basically done using 2 scripts.
+
