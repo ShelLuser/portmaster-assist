@@ -10,19 +10,26 @@ Instead of having to manually use programs like portsnap (to update
 the ports collection) or portmaster (to upgrade the installed ports)
 the entire process can basically be done using 2 scripts.
 
-## FUNCTIONS
+## FEATURES
 
-Updates the ports collection and checks /usr/ports/UPDATING for any
-relevant entries since the last run. When found those get listed in
-a separate log file.
+Updates the ports collection and also checks /usr/ports/UPDATING for any
+relevant entries since the last run. If any UPDATING instructions are
+found then those get copied to a separate logfile.
 
 Upgrades all installed ports using Portmaster while also keeping a
 logfile.
 
 Can use /tmp/portmasterfail.txt to continue a failed installation run.
 
-## THIS IS WORK IN PROGRESS
+## USAGE
 
-At the time of writing the scripts are not ready for "Out of the box"
-usage, see also the wiki.
+Clone the repository to a working directory, then run 'refresh' to
+update the ports collection. This will generate several files amongst
+which 'portmaster.log' and 'refresh.log'. The latter contains a list
+of all ports for which an update is available.
+
+Then run 'update' to actually upgrade all the relevant ports. The
+script will start Portmaster and log all output to 'update.log'.
+
+For more detailed instructions please see the projects wiki on GitHub.
 
