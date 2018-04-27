@@ -2,10 +2,10 @@
 
 ## CONFIG section
 
-# Where the script resides
-WP=/root/updates
-
 ## INIT section (don't change)
+
+# Where the script resides
+WP=`dirname $0`
 
 # Parse config file
 CONF=$WP/`basename $0`.conf
