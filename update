@@ -57,39 +57,43 @@ build() {
 	| tee $WP/$0$1.log
 }
 
+build_jail() {
+	echo "Re-starting build process within jail $jail."	> $WP/$0.log
+	jexec -l $jail $WP/update
+}
+
 build_failed() {
 	portmaster $(cut -f2 -d '>' /tmp/portmasterfail.txt)\
 	| tee $WP/$0_failed.log
 }
 
-build_jail() {
-	echo "Re-starting build process within jail $jail." > $WP/$0.log
-	jexec -l $jail $WP/update
+build_failed_jail() {
+	echo "Continuing build process within jail $jail."	> $WP/$0.log
+	jexec -l $jail $WP/update failed
 }
 
 upgrade() {
 	pkg upgrade
 }
 
-check_failed() {
-	if [ -f /tmp/portmasterfailed.txt ]; then
-		echo "Noticed /tmp/portmasterfailed.txt.";
-		read -p "Use? (y/n) " answer
-		if [ ! -z $answer ];
-			echo yes;
-		else
-			echo no;
-		fi
-	fi
-}
-
 ## MAIN section
+
+if [ -f /tmp/portmasterfailed.txt ]; then
+	echo "Noticed /tmp/portmasterfailed.txt.";
+	read -p "Use? (y/n) " answer
+	if [ ! -z $answer ];
+		echo yes;
+	else
+		echo no;
+	fi
+fi
+exit;
 
 if [ $jail ]; then
 	build_jail
 elif [ "$1" == "pkg" ]; then
 	upgrade
-elif [ "$1" == "pf" ]; then
+elif [ "$1" == "failed" ]; then
 	build_failed
 else
 	build
