@@ -71,6 +71,18 @@ upgrade() {
 	pkg upgrade
 }
 
+check_failed() {
+	if [ -f /tmp/portmasterfailed.txt ]; then
+		echo "Noticed /tmp/portmasterfailed.txt.";
+		read -p "Use? (y/n) " answer
+		if [ ! -z $answer ];
+			echo yes;
+		else
+			echo no;
+		fi
+	fi
+}
+
 ## MAIN section
 
 if [ $jail ]; then
