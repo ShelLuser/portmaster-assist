@@ -78,22 +78,23 @@ upgrade() {
 
 ## MAIN section
 
-if [ -f /tmp/portmasterfailed.txt ]; then
+if [ -f /tmp/portmasterfailed.txt && "$1" != "failed" ]; then
 	echo "Noticed /tmp/portmasterfailed.txt.";
 	read -p "Use? (y/n) " answer
-	if [ ! -z $answer ];
-		echo yes;
-	else
-		echo no;
+	if [ "$answer" == "y" ];
+		failed=1;
 	fi
 fi
-exit;
 
 if [ $jail ]; then
-	build_jail
+	if [ $failed ]; then
+		build_failed_jail;
+	else
+		build_jail;
+	fi;
 elif [ "$1" == "pkg" ]; then
 	upgrade
-elif [ "$1" == "failed" ]; then
+elif [ $failed || "$1" == "failed" ]; then
 	build_failed
 else
 	build
