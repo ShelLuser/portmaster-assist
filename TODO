@@ -1,0 +1,26 @@
+Portmaster Assist
+~~~~~~~~~~~~~~~~~
+
+## TODO list, last update: 10th of May, 2018.
+
+This project is still ongoing, there are several features which I'm
+working on and those which I still want to eventually add. Here's
+a rough overview.
+
+* Documentation * (WIP)
+
+Right now the documentation is a bit lacking, I'm hoping to fully
+sort this out within a few weeks after this update.
+
+* (better) Jail support * (WIP)
+
+I build most of my ports on my main server itself, but also
+sporadically using a dedicated jail. This is something I still
+need to thoroughly test, the feature is beta at best.
+
+* Repository support * (PF)
+
+Many people turn to automated tools to build their own repository,
+but I actually prefer vanilla tools. As such I also want this project
+to eventually be able to maintain a full repository.
+
