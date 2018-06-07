@@ -69,7 +69,7 @@ elif [ "$1" == "help" ]; then
 	echo
 else
 	echo "Wrong parameter!"					> /dev/stderr
-	echo "Usage: $0 [reset|update|clear|pkg|help]"		> /dev/stderr
+	echo "Usage: $0 [reset|update|upfull|clear|pkg|help]"	> /dev/stderr
 fi
 
 if [ "`jobs -p`!" != "!" ]; then
