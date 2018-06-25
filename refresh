@@ -31,11 +31,11 @@ log_full() {
 }
 
 log_new() {
-	pkg version -Il\< > $WP/$ME.log
+	pkg version -Iol\< > $WP/$ME.log
 }
 
 log_pkg() {
-	pkg version -Rl\< > $WP/$ME.log
+	pkg version -Rol\< > $WP/$ME.log
 }
 
 log_updating() {
