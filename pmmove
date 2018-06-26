@@ -12,8 +12,8 @@ endif
 
 set pm=0
 
-if ($1 == "pm") then
-	set pm=1
+if ($1 == "pkg") then
+	set pkg=1
 endif
 
 ## MAIN section
@@ -23,10 +23,10 @@ foreach a ("`grep moved portmaster.log`")
 	set old_pm=`echo $old | cut -d '/' -f2`;
 	set new=`echo "$a" | cut -d ' ' -f7`;
 
-	if ($pm == 1) then
-		portmaster -o $new $old_pm
-	else
+	if ($pkg == 1) then
 		pkg set -yo $old\:$new;
+	else
+		portmaster -o $new $old_pm
 	endif
 	echo "Changed: $old => $new";
 end
