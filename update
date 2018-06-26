@@ -31,7 +31,7 @@ if [ "$(grep moved $WP/portmaster.log)" ]; then
 	exit 1
 fi
 
-if [ "$1" = "jail" ]; then
+if [ "$1" == "jail" ]; then
    if [ ! "$2" ]; then
 	jail=$(awk '/^.*\{/ {print $1}' /etc/jail.conf);
 	if [ ! "$jail" ]; then
