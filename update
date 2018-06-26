@@ -79,11 +79,19 @@ upgrade() {
 ## MAIN section
 
 if [ -e /tmp/portmasterfail.txt -a "$1" != "failed" ]; then
-	echo "I noticed /tmp/portmasterfail.txt.";
+	echo "I noticed /tmp/portmasterfail.txt."
 	read -p "Use? (y/N) " answer
 	if [ "$answer" == "y" ]; then
 		failed=1;
-	fi
+		echo "Using /tmp/portmasterfail.txt"
+	fi;
+	if [ "$failed" != "1" ]; then
+		read -p "Remove? (Y/n) " answer2
+		if [ "$answer2/" == "/" -o "$answer2" != "n" ]; then
+			rm /tmp/portmasterfail.txt
+			echo "Removed."
+		fi;
+	fi;
 fi
 
 if [ $jail ]; then
