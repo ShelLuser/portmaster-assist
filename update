@@ -10,8 +10,8 @@ CONF=$WP/`basename $0`.conf
 
 if [ -f $CONF ]; then
 	# Check for ports to ignore.
-	for a in $(cat update.conf | grep ignore | cut -d '=' -f2-); do
-		IGNORE="$IGNORE -x $a";
+	for a in $(cat update.conf | grep -e '^ignore' | cut -d '=' -f2-); do
+		if [ ! -z $a ]; then IGNORE="$IGNORE -x $a"; fi
 	done;
 else
 	# Create new config file.
