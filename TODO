@@ -10,7 +10,7 @@ a rough overview.
 * Documentation * (WIP)
 
 Right now the documentation is a bit lacking, I'm hoping to fully
-sort this out within a few weeks after this update.
+sort this out soon.
 
 * (better) Jail support * (WIP)
 
@@ -22,5 +22,11 @@ need to thoroughly test, the feature is beta at best.
 
 Many people turn to automated tools to build their own repository,
 but I actually prefer vanilla tools. As such I also want this project
-to eventually be able to maintain a full repository.
+to eventually be able to maintain a repository which can then be
+used by other servers.
+
+
+--
+WIP - Work In Progress
+PF - Planned Feature
 
