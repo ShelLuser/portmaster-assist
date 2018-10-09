@@ -6,7 +6,7 @@ WP=`dirname $0`
 ME=`basename $0`
 udate=`stat -f %Sa -t %Y%m%d $WP/$0.meta`
 
-if [ ! `pkg -e portmaster` ]; then
+if [ `pkg info -e portmaster` ]; then
 	echo "ports-mgmt/portmaster not installed (required)"	> /dev/stderr
 	exit 1;
 fi
