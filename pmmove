@@ -11,6 +11,7 @@ if ("`grep moved portmaster.log`" == "") then
 endif
 
 set pm=0
+echo >&! $0.log
 
 if ($1 == "pkg") then
 	set pkg=1
@@ -39,9 +40,9 @@ foreach a ("`grep moved portmaster.log`")
 			exit 1
 		endif
 	else
-		portmaster -o $new $old_pm |& tee $0.log
+		portmaster -o $new $old_pm |& tee -a $0.log
 		if ($? == 0) then
-			echo "Port moved: $old => $new" | tee $0.log
+			echo "Port moved: $old => $new" | tee -a $0.log
 		else
 			echo "Something went wrong, see $0.log." > /dev/stderr
 			exit 1
