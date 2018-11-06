@@ -20,15 +20,11 @@ if [ "$1" == "reset" -o "$1" == "clear" -o "$2" == "reset" ]; then
 	if [ "$1" == "clear" ]; then exit; fi;
 fi
 
+if [ -n "$udate" ]; then
+	ucmd="-d $udate";
+fi;
+
 ## FUNCTIONS section
-
-ports_fetch() {
-	portsnap fetch update
-}
-
-pkg_fetch() {
-	pkg update
-}
 
 log_full() {
 	portmaster -L > $WP/portmaster.log &
@@ -52,14 +48,14 @@ log_updating() {
 ## MAIN section
 
 if [ "$1" == "" -o "$1" == "reset" ]; then
-	ports_fetch && log_full && log_updating
+	portsnap fetch update && log_full && log_updating
 	touch $0.meta
 elif [ "$1" == "update" ]; then
 	log_new
 elif [ "$1" == "full" ]; then
 	log_full
 elif [ "$1" == "pkg" ]; then
-	pkg_fetch && log_pkg && log_updating
+	log_pkg && log_updating
 	touch $0.meta
 elif [ "$1" == "help" ]; then
 	echo "Usage: $0 [reset|update|upfull|clear|pkg|help] [clear]"

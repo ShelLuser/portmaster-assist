@@ -1,7 +1,7 @@
 #!/bin/csh
 
-### Checks Portmaster log for moved ports and 
-### then changes their origin.
+### Checks Portmaster log for moved ports and changes
+### their origin either using portmaster or pkg.
 
 ## INIT section (don't change)
 
@@ -11,11 +11,17 @@ if ("`grep moved portmaster.log`" == "") then
 endif
 
 set pm=0
+echo >&! $0.log
 
 if ($1 == "pkg") then
 	set pkg=1
 else
 	set pkg=0
+
+	if ! { pkg info -e portmaster } then
+	   echo "ports-mgmt/portmaster not installed (required)" > /dev/stderr
+	   exit 1;
+	endif
 endif
 
 ## MAIN section
@@ -26,11 +32,22 @@ foreach a ("`grep moved portmaster.log`")
 	set new=`echo "$a" | cut -d ' ' -f7`;
 
 	if ($pkg == 1) then
-		pkg set -yo $old\:$new;
+		pkg set -yo $old\:$new
+		if ($? == 0) then
+			echo "Changed origin: $old => $new";
+		else
+			echo "Something went wrong."		> /dev/stderr
+			exit 1
+		endif
 	else
-		portmaster -o $new $old_pm
+		portmaster -o $new $old_pm |& tee -a $0.log
+		if ($? == 0) then
+			echo "Port moved: $old => $new" | tee -a $0.log
+		else
+			echo "Something went wrong, see $0.log." > /dev/stderr
+			exit 1
+		endif
 	endif
-	echo "Changed: $old => $new";
 end
 
 echo "Finished changing port origin(s), now refreshing port updates."

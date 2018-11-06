@@ -27,7 +27,15 @@ if [ ! -z `fuser portmaster.log 2> /dev/null` ]; then
 fi
 
 if [ "$(grep moved $WP/portmaster.log)" ]; then
-	echo Moved ports detected, please handle those first!	> /dev/stderr
+	echo "Moved ports detected, please handle those first!"	> /dev/stderr
+	read -p "Run pmmove? (Y/n) " ansmove
+
+	if [ "$ansmove/" == "/" -o "$ansmove" != "n" ]; then
+		./pmmove;
+	else
+		echo "Exiting; please run pmmove manually."	> /dev/stderr
+	fi
+
 	exit 1
 fi
 
@@ -88,8 +96,7 @@ if [ -e /tmp/portmasterfail.txt -a "$1" != "failed" ]; then
 	if [ "$failed" != "1" ]; then
 		read -p "Remove? (Y/n) " answer2
 		if [ "$answer2/" == "/" -o "$answer2" != "n" ]; then
-			rm /tmp/portmasterfail.txt
-			echo "Removed."
+			rm /tmp/portmasterfail.txt && echo "Removed."
 		fi;
 	fi;
 fi
