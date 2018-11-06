@@ -5,12 +5,6 @@
 
 ## INIT section (don't change)
 
-if ! { fuser portmaster.log >& /dev/null } then
-	echo "Portmaster logfile currently in use, exiting!"	> /dev/stderr
-	echo "(did you run refresh recently?)"			> /dev/stderr
-	exit 1;
-endif
-
 if ("`grep moved portmaster.log`" == "") then
 	echo "No moved ports to process, exiting!"		> /dev/stderr
 	exit 1
@@ -22,6 +16,7 @@ if ($1 == "pkg") then
 	set pkg=1
 else
 	set pkg=0
+
 	if ! { pkg info -e portmaster } then
 	   echo "ports-mgmt/portmaster not installed (required)" > /dev/stderr
 	   exit 1;
@@ -36,17 +31,19 @@ foreach a ("`grep moved portmaster.log`")
 	set new=`echo "$a" | cut -d ' ' -f7`;
 
 	if ($pkg == 1) then
-		if { pkg set -yo $old\:$new; } then
+		pkg set -yo $old\:$new
+		if ($? == 0) then
 			echo "Changed origin: $old => $new";
 		else
-			echo "Something went wrong.."		> /dev/stderr
+			echo "Something went wrong."		> /dev/stderr
 			exit 1
 		endif
 	else
-		if { portmaster -o $new $old_pm } then
-			echo "Port moved: $old => $new";
+		portmaster -o $new $old_pm |& tee $0.log
+		if ($? == 0) then
+			echo "Port moved: $old => $new" | tee $0.log
 		else
-			echo "Something went wrong.."		> /dev/stderr
+			echo "Something went wrong, see $0.log." > /dev/stderr
 			exit 1
 		endif
 	endif
