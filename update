@@ -87,7 +87,7 @@ upgrade() {
 ## MAIN section
 
 if [ -e /tmp/portmasterfail.txt -a "$1" != "failed" ]; then
-	echo "I noticed /tmp/portmasterfail.txt."
+	echo "I detected /tmp/portmasterfail.txt."
 	read -p "Use? (y/N) " answer
 	if [ "$answer" == "y" ]; then
 		failed=1;
@@ -102,7 +102,6 @@ if [ -e /tmp/portmasterfail.txt -a "$1" != "failed" ]; then
 fi
 
 if [ $jail ]; then
-	echo jailed!
 	if [ $failed ]; then
 		build_failed_jail;
 	else
