@@ -51,10 +51,6 @@ build_failed() {
 	| tee $WP/$0_failed.log
 }
 
-upgrade() {
-	pkg upgrade
-}
-
 ## MAIN section
 
 if [ -e /tmp/portmasterfail.txt -a "$1" != "failed" ]; then
@@ -74,8 +70,6 @@ fi
 
 if [ "$1/" == "/" ]; then
 	build
-elif [ "$1" == "pkg" ]; then
-	upgrade
 elif [ "$1" == "failed" -o $failed ]; then
 	build_failed
 fi

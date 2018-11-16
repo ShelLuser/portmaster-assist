@@ -31,10 +31,6 @@ log_new() {
 	pkg version -Iol\< > $WP/$ME.log
 }
 
-log_pkg() {
-	pkg version -Rol\< > $WP/$ME.log
-}
-
 log_updating() {
 	for a in `cat $WP/$ME.log | cut -d '-' -f1`; do
 		pkg updating $ucmd $a >> $WP/$ME-updating.log;
@@ -50,9 +46,6 @@ elif [ "$1" == "update" ]; then
 	log_new
 elif [ "$1" == "full" ]; then
 	log_full
-elif [ "$1" == "pkg" ]; then
-	log_pkg && log_updating
-	touch $0.meta
 elif [ "$1" == "help" ]; then
 	echo "Usage: $0 [reset|update|upfull|clear|pkg|help] [clear]"
 	echo
@@ -61,7 +54,6 @@ elif [ "$1" == "help" ]; then
 	echo "full   => Fully refreshes list of currently known new ports."
 	echo "clear  => Clears $ME-updating.log and exits."
 	echo "           \* Can also be used as parameter."
-	echo "pkg    => Performs update without Portmaster (pkg only)."
 	echo "help   => Display this message."
 	echo
 else
