@@ -39,23 +39,16 @@ if [ "$(grep moved $WP/portmaster.log)" ]; then
 	exit 1
 fi
 
-if [ "$1" == "jail" ]; then
-   if [ ! "$2" ]; then
-	jail=$(awk '/^.*\{/ {print $1}' /etc/jail.conf);
-	if [ ! "$jail" ]; then
-		echo "No jail available, exiting!"		> /dev/stderr
-		exit 1
-	else
-		echo "No jail specified on commandline, trying to use: $jail";
-	fi;
-   else
-	jail=$1;
-   fi;
+if [ "$(grep moved $WP/portmaster.log)" ]; then
+	echo "Moved ports detected, please handle those first!"	> /dev/stderr
+	read -p "Run pmmove? (Y/n) " ansmove
 
-   if [ ! "$(jls | grep $jail)" ]; then
-	echo "Jail $jail isn't running, exiting!"		> /dev/stderr
+	if [ "$ansmove/" == "/" -o "$ansmove" != "n" ]; then
+		./pmmove;
+	else
+		echo "Exiting; please run pmmove manually."	> /dev/stderr
+	fi
 	exit 1
-   fi;
 fi
 
 ## FUNCTIONS
@@ -75,19 +68,10 @@ build_failed() {
 	| tee $WP/$0_failed.log
 }
 
-build_failed_jail() {
-	echo "Continuing build process within jail $jail."	> $WP/$0.log
-	jexec -l $jail $WP/update failed
-}
-
-upgrade() {
-	pkg upgrade
-}
-
 ## MAIN section
 
 if [ -e /tmp/portmasterfail.txt -a "$1" != "failed" ]; then
-	echo "I noticed /tmp/portmasterfail.txt."
+	echo "I detected /tmp/portmasterfail.txt."
 	read -p "Use? (y/N) " answer
 	if [ "$answer" == "y" ]; then
 		failed=1;
@@ -101,18 +85,9 @@ if [ -e /tmp/portmasterfail.txt -a "$1" != "failed" ]; then
 	fi;
 fi
 
-if [ $jail ]; then
-	echo jailed!
-	if [ $failed ]; then
-		build_failed_jail;
-	else
-		build_jail;
-	fi;
-elif [ "$1" == "pkg" ]; then
-	upgrade
+if [ "$1/" == "/" ]; then
+	build
 elif [ "$1" == "failed" -o $failed ]; then
 	build_failed
-else
-	build
 fi
 

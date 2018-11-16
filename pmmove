@@ -50,6 +50,6 @@ foreach a ("`grep moved portmaster.log`")
 	endif
 end
 
-echo "Finished changing port origin(s), now refreshing port updates."
+echo "Finished processing moved port(s), now refreshing port updates."
 ./refresh full
 
