@@ -8,18 +8,17 @@ it easier to maintain the FreeBSD ports collection on the commandline.
 
 Instead of having to manually use programs like portsnap (to update
 the ports collection) and portmaster (to upgrade the installed ports)
-the entire process can basically be done using 2 scripts:
+the entire process can basically be done using 2 commands:
 
 ./refresh
 ./update
 
 I've been using this setup for a long time on my own servers and
 after a friend of mine told me how much they enjoyed the scripts I
-decided that I should (try to) share this with the rest of the
-FreeBSD community. Many people enjoy(ed) this and I hope that you
-do too.
+decided that I should share these with the rest of the FreeBSD
+community. Many people enjoy(ed) this and I hope that you do too.
 
-Be sure to check out the TODO file too :)
+Be sure to also check out the TODO file :)
 
 ## FEATURES
 
@@ -32,9 +31,7 @@ Be sure to check out the TODO file too :)
    separate logfile (which is useful as reference when something goes
    wrong).
 
- * Can use /tmp/portmasterfail.txt to continue a failed installation run.
-
- * Has (limited) jail support, this is work in progress.
+ * Can use /tmp/portmasterfail.txt to continue a failed update run.
 
 ## USAGE
 
@@ -46,6 +43,5 @@ of all ports for which an update is available.
 Then run 'update' to actually upgrade all the relevant ports. The
 script will start Portmaster and log all output to 'update.log'.
 
-For more detailed instructions please see the projects wiki on GitHub,
-but I'll be sure to make better documentation a high priority.
+For more detailed instructions please see the projects wiki on GitHub.
 
