@@ -1,17 +1,12 @@
 #!/bin/csh
 
-### Checks Portmaster log for moved ports and changes
-### their origin either using portmaster or pkg.
+### v2.0
+###
+### This script checks portmaster.log for moved ports
+### and either re-installs these (default) or allows
+### you to to only rebase the port(s) orgin using pkg.
 
 ## INIT section (don't change)
-
-if ("`grep moved portmaster.log`" == "") then
-	echo "No moved ports to process, exiting!"		> /dev/stderr
-	exit 1
-endif
-
-set pm=0
-echo >&! $0.log
 
 if ($1 == "pkg") then
 	set pkg=1
@@ -22,7 +17,21 @@ else
 	   echo "ports-mgmt/portmaster not installed (required)" > /dev/stderr
 	   exit 1;
 	endif
+else if ($1 == "help") then
+	echo "Usage: $0 [pkg]"
+	echo
+	echo "pkg => Changes the moved ports base using pkg."
+	echo
+	exit
 endif
+
+if ("`grep moved portmaster.log`" == "") then
+	echo "No moved ports to process, exiting!"		> /dev/stderr
+	exit 1
+endif
+
+set pm=0
+echo >&! $0.log
 
 ## MAIN section
 
