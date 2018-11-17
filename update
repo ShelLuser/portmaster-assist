@@ -1,11 +1,16 @@
 #!/bin/sh
 
+### v2.0
+###
+### This script upgrades all the installed ports
+### for which a new version is available.
+
 ## INIT section (don't change)
 
 # Where the script resides
 WP=`dirname $0`
 
-# Parse config file
+# Config file to use
 CONF=$WP/`basename $0`.conf
 
 if [ -f $CONF ]; then
@@ -20,7 +25,7 @@ else
 	echo "#ignore=screen nvidia-driver"			> $CONF
 fi
 
-if [ ! -z `fuser portmaster.log 2> /dev/null` ]; then
+if [ ! -z $(fuser portmaster.log 2> /dev/null) ]; then
 	echo "Portmaster logfile currently in use, exiting!"	> /dev/stderr
 	echo "(did you run refresh recently?)"			> /dev/stderr
 	exit 1;
@@ -85,7 +90,7 @@ if [ -e /tmp/portmasterfail.txt -a "$1" != "failed" ]; then
 	fi;
 fi
 
-if [ "$1/" == "/" ]; then
+if [ -z $1 ]; then
 	build
 elif [ "$1" == "failed" -o $failed ]; then
 	build_failed
