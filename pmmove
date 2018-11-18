@@ -1,10 +1,10 @@
 #!/bin/csh
 
-### v2.0
+### v2.1
 ###
 ### This script checks portmaster.log for moved ports
 ### and either re-installs these (default) or allows
-### you to to only rebase the port(s) orgin using pkg.
+### you to only rebase the port(s) orgin using pkg.
 
 ## INIT section (don't change)
 

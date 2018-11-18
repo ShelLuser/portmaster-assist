@@ -1,6 +1,6 @@
 #!/bin/sh
 
-### v2.0
+### v2.1
 ###
 ### This script upgrades all the installed ports
 ### for which a new version is available.
@@ -8,10 +8,10 @@
 ## INIT section (don't change)
 
 # Where the script resides
-WP=`dirname $0`
+WP=$(dirname $0)
 
 # Config file to use
-CONF=$WP/`basename $0`.conf
+CONF=$WP/$(basename $0).conf
 
 if [ -f $CONF ]; then
 	# Check for ports to ignore.

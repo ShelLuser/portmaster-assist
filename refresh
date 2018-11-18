@@ -1,6 +1,6 @@
 #!/bin/sh
 
-### v2.0
+### v2.1
 ###
 ### This script updates the ports collection and
 ### creates a summary which lists the installed
@@ -8,9 +8,9 @@
 
 ## INIT section (don't change)
 
-WP=`dirname $0`
-ME=`basename $0`
-udate=`stat -f %Sa -t %Y%m%d $WP/$0.meta`
+WP=$(dirname $0)
+ME=$(basename $0)
+udate=$(stat -f %Sa -t %Y%m%d $WP/$0.meta)
 
 if [ $(pkg info -e portmaster) ]; then
 	echo "ports-mgmt/portmaster not installed (required)"	> /dev/stderr
@@ -24,6 +24,12 @@ fi;
 if [ "$1" == "reset" -o "$1" == "clear" -o "$2" == "reset" ]; then
 	> $WP/$ME-updating.log;
 	if [ "$1" == "clear" ]; then exit; fi;
+fi
+
+if [ ! -z $(fuser portmaster.log 2> /dev/null) ]; then
+	echo "Portmaster logfile still in use, exiting!"	> /dev/stderr
+	echo "(ran refresh recently?)"				> /dev/stderr
+	exit 1;
 fi
 
 if [ -n "$udate" ]; then
@@ -42,14 +48,14 @@ log_new() {
 }
 
 log_updating() {
-	for a in `cat $WP/$ME.log | cut -d '-' -f1`; do
+	for a in $(cat $WP/$ME.log | cut -d '-' -f1); do
 		pkg updating $ucmd $a >> $WP/$ME-updating.log;
 	done
 }
 
 ## MAIN section
 
-if [ -z $1 -o "$1" == "reset" ]; then
+if [ -z $1 ] || [ "$1" == "reset" ]; then
 	portsnap fetch update && log_full && log_updating
 	touch $0.meta
 elif [ "$1" == "update" ]; then
@@ -69,10 +75,10 @@ elif [ "$1" == "help" ]; then
 	echo
 else
 	echo "Wrong parameter!"					> /dev/stderr
-	echo "Usage: $0 [reset|update|full|clear|pkg|help]"	> /dev/stderr
+	echo "Usage: $0 [reset|update|full|clear|help]"		> /dev/stderr
 fi
 
-if [ "`jobs -p`!" != "!" ]; then
+if [ -n "$(jobs -p)" ]; then
 	echo "Warning: background job still running!"		> /dev/stderr
 fi
 
