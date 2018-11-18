@@ -1,6 +1,6 @@
 #!/bin/sh
 
-### v2.0
+### v2.1
 ###
 ### This script updates the ports collection and
 ### creates a summary which lists the installed
@@ -20,6 +20,12 @@ fi
 if [ "$1" == "reset" -o "$1" == "clear" -o "$2" == "reset" ]; then
 	> $WP/$ME-updating.log;
 	if [ "$1" == "clear" ]; then exit; fi;
+fi
+
+if [ ! -z $(fuser portmaster.log 2> /dev/null) ]; then
+	echo "Portmaster logfile still in use, exiting!"	> /dev/stderr
+	echo "(ran refresh recently?)"				> /dev/stderr
+	exit 1;
 fi
 
 if [ -n "$udate" ]; then
@@ -45,7 +51,7 @@ log_updating() {
 
 ## MAIN section
 
-if [ -z $1 -o "$1" == "reset" ]; then
+if [ -z $1 ] || [ "$1" == "reset" ]; then
 	portsnap fetch update && log_full && log_updating
 	touch $0.meta
 elif [ "$1" == "update" ]; then
@@ -68,7 +74,7 @@ else
 	echo "Usage: $0 [reset|update|full|clear|pkg|help]"	> /dev/stderr
 fi
 
-if [ "`jobs -p`!" != "!" ]; then
+if [ -n "$(jobs -p)" ]; then
 	echo "Warning: background job still running!"		> /dev/stderr
 fi
 
