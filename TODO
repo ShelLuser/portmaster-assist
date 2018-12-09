@@ -1,15 +1,22 @@
 Portmaster Assist
 ~~~~~~~~~~~~~~~~~
 
-## TODO list, last update: 11th of November, 2018.
+## TODO list, last update: 9th of December, 2018.
 
 This is a brief summary, for a full up to date overview please
 see the project wiki on GitHub.
 
-* Documentation * (WIP)
+* Faster detection for moved ports * (WIP)
 
-Right now the documentation is a bit lacking, I'm hoping to fully
-sort this out soon.
+The 'portmaster.log' file is used to detect moved ports, but the
+generation of this file takes time. The idea is to try and use
+/usr/ports/MOVED to detect recent changes.
+
+* Support for deleted ports * (WIP)
+
+In addition to the previous point: it might be useful if the
+script would issue a warning when it detects an installed port
+which is no longer maintained.
 
 * Repository support * (PF)
 
@@ -17,6 +24,13 @@ Many people turn to automated tools to build their own repository,
 but I actually prefer vanilla tools. As such I also want this project
 to eventually be able to maintain a repository which can then be
 used by other servers.
+
+* Error handling * (PF)
+
+Sometimes a build can fail due to vulnerabilities being present in
+the port, the solution is to temporarily disable this check. This
+feature would detect such failed builds and then provide an option to
+restart the installation with the override.
 
 --
 WIP - Work In Progress
