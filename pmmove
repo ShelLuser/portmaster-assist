@@ -1,6 +1,6 @@
 #!/bin/csh
 
-### v2.1
+### v2.2
 ###
 ### This script checks portmaster.log for moved ports
 ### and either re-installs these (default) or allows
