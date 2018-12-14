@@ -1,6 +1,6 @@
 #!/bin/sh
 
-### v2.2
+### v2.3
 ###
 ### This script upgrades all the installed ports
 ### for which a new version is available.
@@ -14,7 +14,7 @@ WP=$(dirname $0)
 CONF=$WP/$(basename $0).conf
 
 
-if [ ! $(pkg info -e portmaster) ]; then
+if [ -z "$(pkg info -qo portmaster)" ]; then
 	echo "ports-mgmt/portmaster not installed (required)"	> /dev/stderr
 	exit 1;
 fi
