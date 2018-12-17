@@ -1,6 +1,6 @@
 #!/bin/sh
 
-### v2.3
+### v3.0
 ###
 ### This script upgrades all the installed ports
 ### for which a new version is available.
@@ -50,28 +50,11 @@ if [ "$(grep moved $WP/portmaster.log)" ]; then
 	exit 1
 fi
 
-if [ "$(grep moved $WP/portmaster.log)" ]; then
-	echo "Moved ports detected, please handle those first!"	> /dev/stderr
-	read -p "Run pmmove? (Y/n) " ansmove
-
-	if [ "$ansmove/" == "/" -o "$ansmove" != "n" ]; then
-		./pmmove;
-	else
-		echo "Exiting; please run pmmove manually."	> /dev/stderr
-	fi
-	exit 1
-fi
-
 ## FUNCTIONS
 
 build() {
 	portmaster -a $IGNORE\
 	| tee $WP/$0$1.log
-}
-
-build_jail() {
-	echo "Re-starting build process within jail $jail."	> $WP/$0.log
-	jexec -l $jail $WP/update
 }
 
 build_failed() {

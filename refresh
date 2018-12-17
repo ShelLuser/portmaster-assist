@@ -1,6 +1,6 @@
 #!/bin/sh
 
-### v2.3
+### v3.0
 ###
 ### This script updates the ports collection and
 ### creates a summary which lists the installed
@@ -16,10 +16,6 @@ if [ -z "$(pkg info -qo portmaster)" ]; then
 	echo "ports-mgmt/portmaster not installed (required)"	> /dev/stderr
 	exit 1;
 fi
-
-if [ -n "$udate" ]; then
-	ucmd="-d $udate";
-fi;
 
 if [ "$1" == "reset" -o "$1" == "clear" -o "$2" == "reset" ]; then
 	> $WP/$ME-updating.log;
