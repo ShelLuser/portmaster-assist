@@ -1,6 +1,6 @@
 #!/bin/sh
 
-### v2.3
+### v3.0
 ###
 ### This script updates the ports collection and
 ### creates a summary which lists the installed

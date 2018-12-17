@@ -1,6 +1,6 @@
 #!/bin/sh
 
-### v2.3
+### v3.0
 ###
 ### This script upgrades all the installed ports
 ### for which a new version is available.
