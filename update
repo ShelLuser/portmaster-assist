@@ -58,23 +58,23 @@ build() {
 }
 
 build_failed() {
-	portmaster $(cut -f2 -d '>' /tmp/portmasterfail.txt)\
+	portmaster $(cut -f2 -d '>' ~/portmasterfail.txt)\
 	| tee $WP/$0_failed.log
 }
 
 ## MAIN section
 
-if [ -e /tmp/portmasterfail.txt -a "$1" != "failed" ]; then
-	echo "I detected /tmp/portmasterfail.txt."
+if [ -e ~/portmasterfail.txt -a "$1" != "failed" ]; then
+	echo "I detected ~/portmasterfail.txt."
 	read -p "Use? (y/N) " answer
 	if [ "$answer" == "y" ]; then
 		failed=1;
-		echo "Using /tmp/portmasterfail.txt"
+		echo "Using ~/portmasterfail.txt"
 	fi;
 	if [ "$failed" != "1" ]; then
 		read -p "Remove? (Y/n) " answer2
 		if [ "$answer2/" == "/" -o "$answer2" != "n" ]; then
-			rm /tmp/portmasterfail.txt && echo "Removed."
+			rm ~/portmasterfail.txt && echo "Removed."
 		fi;
 	fi;
 fi

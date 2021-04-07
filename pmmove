@@ -37,7 +37,8 @@ echo >&! $0.log
 
 foreach a ("`grep moved portmaster.log`")
 	set old=`echo "$a" | cut -d ' ' -f3`;
-	set old_pm=`echo $old | cut -d '/' -f2`;
+	#set old_pm=`echo $old | cut -d '/' -f2`;
+	set old_pm=`pkg info -x $old`;
 	set new=`echo "$a" | cut -d ' ' -f7`;
 
 	if ($pkg == 1) then

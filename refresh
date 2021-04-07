@@ -17,6 +17,11 @@ if [ -z "$(pkg info -qo portmaster)" ]; then
 	exit 1;
 fi
 
+if [ -z "$(pkg info -qo git)" ]; then
+	echo "devel/git not installed (required)"		> /dev/stderr
+	exit 1;
+fi
+
 if [ "$1" == "reset" -o "$1" == "clear" -o "$2" == "reset" ]; then
 	> $WP/$ME-updating.log;
 	if [ "$1" == "clear" ]; then exit; fi;
@@ -40,7 +45,8 @@ log_full() {
 }
 
 log_new() {
-	pkg version -Iol\< > $WP/$ME.log
+	echo "Checking for new port versions using PKG..."
+	pkg version -ol\< | tee $WP/$ME.log
 }
 
 log_updating() {
@@ -49,10 +55,18 @@ log_updating() {
 	done
 }
 
+ports_update() {
+	cd /usr/ports
+	echo "Updating ports collection using Git..."
+	git pull origin main
+	cd -
+}
+
 ## MAIN section
 
 if [ -z $1 ] || [ "$1" == "reset" ]; then
-	portsnap fetch update && log_full && log_updating
+	#portsnap fetch update && log_full && log_updating
+	ports_update && log_full && log_updating
 	touch $0.meta
 elif [ "$1" == "update" ]; then
 	log_new
