@@ -45,8 +45,8 @@ log_full() {
 }
 
 log_new() {
-	echo "Checking for new port versions using PKG..."
-	pkg version -ol\< | tee $WP/$ME.log
+	echo " >Checking for new port versions using PKG..."
+	pkg version -Pol\< | tee $WP/$ME.log
 }
 
 log_updating() {
@@ -57,7 +57,7 @@ log_updating() {
 
 ports_update() {
 	cd /usr/ports
-	echo "Updating ports collection using Git..."
+	echo " >Updating ports collection using Git..."
 	git pull origin main
 	cd -
 }
@@ -89,6 +89,6 @@ else
 fi
 
 if [ -n "$(jobs -p)" ]; then
-	echo "Warning: background job still running!"		> /dev/stderr
+	echo " >Warning: background job still running!"		> /dev/stderr
 fi
 
