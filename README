@@ -6,9 +6,9 @@ Portmaster Assist
 Postmaster assist is a collection of three shell scripts which make
 it easier to maintain the FreeBSD ports collection on the commandline.
 
-Instead of having to manually use programs like portsnap (to update
-the ports collection) and portmaster (to upgrade the installed ports)
-the entire process can basically be done using 2 commands:
+Instead of having to manually use programs like portsnap or Git (to
+update the ports collection) and portmaster (to upgrade the installed
+ports) the entire process can basically be done using 2 commands:
 
 ./refresh
 ./update
@@ -25,13 +25,13 @@ Be sure to also check out the TODO file :)
  * Updates the ports collection and also checks /usr/ports/UPDATING for
    any relevant entries since the last run. If any UPDATING instructions
    are found then those get copied to a separate logfile called
-   refresh-updating.log.
+   ./refresh-updating.log.
 
  * Upgrades all installed ports using Portmaster while also keeping a
    separate logfile (which is useful as reference when something goes
    wrong).
 
- * Can use /tmp/portmasterfail.txt to continue a failed update run.
+ * Can use ~/portmasterfail.txt to continue a failed update run.
 
 ## USAGE
 
