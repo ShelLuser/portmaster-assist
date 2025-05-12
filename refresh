@@ -10,7 +10,8 @@
 
 WP=$(dirname $0)
 ME=$(basename $0)
-udate=$(stat -f %Sa -t %Y%m%d $WP/$0.meta)
+udate=$(stat -f %Sa -t %Y%m%d $WP/$ME.meta)			2>/dev/null
+
 
 if [ -z "$(pkg info -qo portmaster)" ]; then
 	echo "ports-mgmt/portmaster not installed (required)"	> /dev/stderr
