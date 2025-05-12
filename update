@@ -12,6 +12,7 @@ WP=$(dirname $0)
 
 # Config file to use
 CONF=$WP/$(basename $0).conf
+LOG=$WP/$(basename $0).log
 
 
 if [ -z "$(pkg info -qo portmaster)" ]; then
@@ -21,7 +22,7 @@ fi
 
 if [ -f $CONF ]; then
 	# Check for ports to ignore.
-	for a in $(cat update.conf | grep -e '^ignore' | cut -d '=' -f2-); do
+	for a in $(cat $CONF | grep -e '^ignore' | cut -d '=' -f2-); do
 		if [ ! -z $a ]; then IGNORE="$IGNORE -x $a"; fi
 	done;
 else
@@ -31,7 +32,7 @@ else
 	echo "#ignore=screen nvidia-driver"			> $CONF
 fi
 
-if [ ! -z $(fuser portmaster.log 2> /dev/null) ]; then
+if [ ! -z $(fuser $WP/portmaster.log 2> /dev/null) ]; then
 	echo "Portmaster logfile currently in use, exiting!"	> /dev/stderr
 	echo "(did you run refresh recently?)"			> /dev/stderr
 	exit 1;
@@ -54,12 +55,12 @@ fi
 
 build() {
 	portmaster -a $IGNORE\
-	| tee $WP/$0$1.log
+	| tee $LOG
 }
 
 build_failed() {
 	portmaster $(cut -f2 -d '>' ~/portmasterfail.txt)\
-	| tee $WP/$0_failed.log
+	| tee $WP/update_failed.log
 }
 
 ## MAIN section
