@@ -1,5 +1,4 @@
 *.log
 *.meta
 *.conf
-.github/copilot-instructions.md
 portmaster-assist.code-workspace
