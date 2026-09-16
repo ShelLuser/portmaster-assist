@@ -13,7 +13,7 @@
 * Bug reports.
 * Feature suggestions.
 
-## What we **won't** tolerate and/or appreciate...
+## What we *won't* tolerate and/or appreciate...
 
 * Harassment.
 * Personal attacks.
