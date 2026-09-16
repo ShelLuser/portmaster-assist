@@ -1,6 +1,6 @@
-#!/bin/csh
+#!/bin/sh
 
-### v3.0
+### v3.1_alpha // this script is currently broken!
 ###
 ### This script checks portmaster.log for moved ports
 ### and either re-installs these (default) or allows
