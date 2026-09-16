@@ -8,12 +8,17 @@
 
 ## INIT section (don't change)
 
+
+echo "This script is currently marked broken, do not use!" > /dev/stderr
+exit 1
+
+
 if ($1 == "pkg") then
 	set pkg=1
 else
 	set pkg=0
 
-	if ! { pkg info -e portmaster } then
+if ! { pkg info -e portmaster } then
 	   echo "ports-mgmt/portmaster not installed (required)" > /dev/stderr
 	   exit 1;
 	endif
@@ -62,4 +67,3 @@ end
 
 echo "Finished processing moved port(s), now refreshing port updates."
 ./refresh full
-

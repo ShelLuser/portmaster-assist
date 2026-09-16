@@ -40,13 +40,13 @@ fi
 
 if [ "$(grep moved $WP/portmaster.log)" ]; then
 	echo "Moved ports detected, please handle those first!"	> /dev/stderr
-	read -p "Run pmmove? (Y/n) " ansmove
+	# read -p "Run pmmove? (Y/n) " ansmove
 
-	if [ "$ansmove/" == "/" -o "$ansmove" != "n" ]; then
-		./pmmove;
-	else
-		echo "Exiting; please run pmmove manually."	> /dev/stderr
-	fi
+	# if [ "$ansmove/" = "/" -o "$ansmove" != "n" ]; then
+	# 	./pmmove;
+	# else
+	# 	echo "Exiting; please run pmmove manually."	> /dev/stderr
+	# fi
 
 	exit 1
 fi
@@ -68,13 +68,13 @@ build_failed() {
 if [ -e ~/portmasterfail.txt -a "$1" != "failed" ]; then
 	echo "I detected ~/portmasterfail.txt."
 	read -p "Use? (y/N) " answer
-	if [ "$answer" == "y" ]; then
+	if [ "$answer" = "y" ]; then
 		failed=1;
 		echo "Using ~/portmasterfail.txt"
 	fi;
 	if [ "$failed" != "1" ]; then
 		read -p "Remove? (Y/n) " answer2
-		if [ "$answer2/" == "/" -o "$answer2" != "n" ]; then
+		if [ "$answer2/" = "/" -o "$answer2" != "n" ]; then
 			rm ~/portmasterfail.txt && echo "Removed."
 		fi;
 	fi;
@@ -82,7 +82,6 @@ fi
 
 if [ -z $1 ]; then
 	build
-elif [ "$1" == "failed" -o $failed ]; then
+elif [ "$1" = "failed" -o $failed ]; then
 	build_failed
 fi
-

@@ -23,9 +23,9 @@ if [ -z "$(pkg info -qo git)" ]; then
 	exit 1;
 fi
 
-if [ "$1" == "reset" -o "$1" == "clear" -o "$2" == "reset" ]; then
+if [ "$1" = "reset" -o "$1" = "clear" -o "$2" = "reset" ]; then
 	> $WP/$ME-updating.log;
-	if [ "$1" == "clear" ]; then exit; fi;
+	if [ "$1" = "clear" ]; then exit; fi;
 fi
 
 if [ ! -z $(fuser portmaster.log 2> /dev/null) ]; then
@@ -69,11 +69,11 @@ if [ -z $1 ] || [ "$1" == "reset" ]; then
 	#portsnap fetch update && log_full && log_updating
 	ports_update && log_full && log_updating
 	touch $0.meta
-elif [ "$1" == "update" ]; then
+elif [ "$1" = "update" ]; then
 	log_new
-elif [ "$1" == "full" ]; then
+elif [ "$1" = "full" ]; then
 	log_full
-elif [ "$1" == "help" ]; then
+elif [ "$1" = "help" ]; then
 	echo "Usage: $0 [reset|update|full|clear|help] [clear]"
 	echo
 	echo "reset  => Clears $ME-updating.log and performs update."
@@ -92,4 +92,3 @@ fi
 if [ -n "$(jobs -p)" ]; then
 	echo " >Warning: background job still running!"		> /dev/stderr
 fi
-
