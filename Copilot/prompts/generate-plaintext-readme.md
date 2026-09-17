@@ -1,4 +1,4 @@
-Prompt version: 1.1
+Prompt version: 1.2
 
 Task:
 
@@ -13,6 +13,7 @@ Requirements:
 - Make sure to use * characters when you're copying bullet lists.
 - Don't copy any lines which have been ~~crossed out~~ using markup.
 - There are one (or more) image links used in the README, don't include these in the new file.
+  - Omit the line "And that resulted in this:" because it references an image link.
 - Use double quotes for codeblocks. For example: "devel/git" instead of `devel/git`.
 - Use // for the header sections (example: "// About").
 - Add a new "References" section at the end of the new document with a summary of all the links that have been used.
