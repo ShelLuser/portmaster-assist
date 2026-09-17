@@ -2,37 +2,75 @@ Portmaster Assist (project revival)
 
 // About
 
-Portmaster Assist is a collection of 3 shell scripts which can help you to maintain the ports collection (/usr/ports) with the help of Git ("devel/git") and the Portmaster script ("ports-mgmt/portmaster").
+Portmaster Assist is a collection of 3 shell scripts which can help you to
+maintain the ports collection (/usr/ports) with the help of Git ("devel/git")
+and the Portmaster script ("ports-mgmt/portmaster").
 
 These scripts can be used to:
-* Keep the ports collection up to date using Git.
-* Check which packages have an update available while also parsing /usr/ports/CHANGES to search for mention of any specific upgrade instructions.
-* Upgrade packages using Portmaster while also allowing you to ignore certain ports (think of screen, llvm or Rust).
-* Detecing moved ports, and to automatically handle the move and/or rename.
 
-This project was created in 2018, got updated when the FreeBSD project moved away from Subversion in favor of Git and then got a bit abandoned in a mostly working state (the scripts refresh and update work without issue, but pmmove always had a few problems).
+* Keep the ports collection up to date using Git.
+
+* Check which packages have an update available while also parsing
+  /usr/ports/CHANGES to search for mention of any specific upgrade
+  instructions.
+
+* Upgrade packages using Portmaster while also allowing you to ignore certain
+  ports (think of screen, llvm or Rust).
+
+* Detect moved ports, and automatically handle the move and/or rename.
+
+This project was created in 2018, got updated when the FreeBSD project moved
+away from Subversion in favor of Git and then got a bit abandoned in a mostly
+working state (the scripts refresh and update work without issue, but pmmove
+always had a few problems).
 
 Time for a revival!
 
 // The project revival
 
-When I started this project I fully relied on vi, vim (sporadicaly) as well as Git to maintain things; I actually did most of the work from a FreeBSD commmand line. While this worked like a charm for me it also took up quite a bit of time, and in addition this didn't allow me to take any advantage of all the other features which GitHub provides, such as the Issue tracker.
+When I started this project I fully relied on vi, vim (sporadically) as well
+as Git to maintain things; I actually did most of the work from a FreeBSD
+command line. While this worked like a charm for me it also took up quite a
+bit of time, and in addition this didn't allow me to take advantage of all the
+other features which GitHub provides, such as the Issue tracker.
 
-Between then and now 2 things changed: I got quite familiar with using Visual Studio Code, and in addition I also developed a serious liking for the Python programming language. And that resulted in this:
-
+Between then and now 2 things changed: I got quite familiar with using Visual
+Studio Code, and in addition I also developed a serious liking for the Python
+programming language. And that resulted in this:
 
 // The revival 'todo' list
 
-The whole revival effort resolves around the Project revision 2026 milestone as listed on the Issue tracker.
+The whole revival effort revolves around the Project revision 2026 milestone
+as listed on the Issue tracker.
 
-These steps basically consists of (in random order):
+These steps basically consist of the following, in random order:
 
 * Updating the GitHub repository to reflect on the current situation.
-  - Updating documentation (like this new README.md).
-  - Adding / revising todo items for the Issue tracker.
-  - Updating the Portmaster Assist wiki.
-* Setting up VS Code for easier access to the repository (this is already done!).
-* Actually fixing the code (yah, duh!).
-* Building a Python backend (my plan is to either rebuild the whole project in Python, or to maintain 2 projects: this one and a Python based project (py-portmaster-assist? ;)).
+  * Updating documentation, such as the new README.md.
+  * Adding or revising todo items for the Issue tracker.
+  * Updating the Portmaster Assist wiki.
 
-For more information please check out the Portmaster Assist wiki.
+* Actually fixing the code ("duh!").
+
+* Building a Python backend. The plan is to either rebuild the whole project
+  in Python, or to maintain 2 projects: this one and a Python-based project
+  (py-portmaster-assist? ;)).
+
+For more information, please refer to the Portmaster Assist wiki.
+
+// References
+
+  Issue tracker
+    https://github.com/ShelLuser/portmaster-assist/issues
+
+  Project revision 2026 milestone
+    https://github.com/ShelLuser/portmaster-assist/milestone/3
+
+  Portmaster Assist wiki
+    https://github.com/ShelLuser/portmaster-assist/wiki
+
+  Visual Studio Code
+    https://code.visualstudio.com/
+
+  Python programming language
+    https://www.python.org/
